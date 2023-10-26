@@ -42,7 +42,7 @@ export default function Home() {
             lon: position.coords.longitude,
           });
         },
-        (error) => {
+        () => {
           window.alert('位置情報の取得に失敗しました。');
         }
       );
