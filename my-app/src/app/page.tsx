@@ -33,19 +33,24 @@ export default function Home() {
     setShops(data.results);
   };
 
-  const getPosition = () => {
+  const getPosition = async () => {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setGeolocation({
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-          });
-        },
-        () => {
-          window.alert('位置情報の取得に失敗しました。');
-        }
-      );
+      await new Promise((resolve) => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setGeolocation({
+              lat: position.coords.latitude,
+              lon: position.coords.longitude,
+            });
+            console.log('done');
+            resolve(null);
+          },
+          () => {
+            window.alert('位置情報の取得に失敗しました。');
+          }
+        );
+      });
+      console.log('hoge');
     } else {
       window.alert('このブラウザはGeolocationをサポートしていません。');
     }
